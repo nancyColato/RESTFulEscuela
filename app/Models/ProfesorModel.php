@@ -19,8 +19,8 @@ class ProfesorModel extends Model{
     protected $validationRules  = [
         'nombre'        => 'required|alpha_space|min_length[3]|max_length[75]',
         'apellido'      => 'required|alpha_space|min_length[3]|max_length[75]',
-        'dui'           => 'permit_empty|alpha_space|min_length[10]|max_length[10]',
-        'profesion'        => 'required|alfa|min_length[3]max_length[3]',
+        'dui'           => 'permit_empty|regex_match[/^\d{8}-\d{1}$/]|min_length[10]|max_length[10]',
+        'profesion'        => 'required|alpha|min_length[3]max_length[3]',
         'telefono'        => 'required|alpha_dash|min_length[9]|max_length[9]',
     ];
 
