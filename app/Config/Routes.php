@@ -35,8 +35,24 @@ $routes->get('/', 'Home::index');
 //rutas del grupo api
 //http://localhost:8080/api
 $routes->group('api',['namespace'=> 'App\Controllers\API'], function($routes){
-	//	 -->GET
-	$routes->get('estudiantes', 'Estudiantes::index');
+	
+	//	 -->Rutas de Estudiantes
+	$routes->group('estudiantes', function($routes){
+		
+		$routes->get('estudiantes', 'Estudiantes::index');//http://localhost:8080/api/estudiantes
+		$routes->post('estudiantes/create', 'Estudiantes::create');//http://localhost:8080/api/estudiantes/create
+	});
+	
+	//	 -->Rutas de Profesores
+	$routes->group('profesores', function($routes){
+		
+		$routes->get('profesores', 'Profesores::index');//http://localhost:8080/api/profesores
+		$routes->post('profesores/create', 'Profesores::create');//http://localhost:8080/api/profesores/create
+		$routes->get('profesores/edit/(:num)', 'Profesores::edit/$1');//http://localhost:8080/api/profesores/edit/1
+		$routes->put('profesores/update/(:num)', 'Profesores::update/$1');//http://localhost:8080/api/profesores/update/1
+		$routes->put('profesores/delete/(:num)', 'Profesores::delete/$1');//http://localhost:8080/api/profesores/delete/1
+	});
+	
 });
 
 /**
