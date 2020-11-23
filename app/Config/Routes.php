@@ -41,6 +41,9 @@ $routes->group('api',['namespace'=> 'App\Controllers\API'], function($routes){
 		
 		$routes->get('estudiantes', 'Estudiantes::index');//http://localhost:8080/api/estudiantes
 		$routes->post('estudiantes/create', 'Estudiantes::create');//http://localhost:8080/api/estudiantes/create
+		$routes->get('estudiantes/edit/(:num)', 'Estudiantes::edit/$1');//http://localhost:8080/api/estudiantes/edit/1
+		$routes->put('estudiantes/update/(:num)', 'Estudiantes::update/$1');//http://localhost:8080/api/estudiantes/update/1
+		$routes->put('estudiantes/delete/(:num)', 'Estudiantes::delete/$1');//http://localhost:8080/api/estudiantes/delete/1
 	});
 	
 	//	 -->Rutas de Profesores
