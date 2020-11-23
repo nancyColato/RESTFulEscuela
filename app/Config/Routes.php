@@ -52,6 +52,15 @@ $routes->group('api',['namespace'=> 'App\Controllers\API'], function($routes){
 		$routes->put('profesores/update/(:num)', 'Profesores::update/$1');//http://localhost:8080/api/profesores/update/1
 		$routes->put('profesores/delete/(:num)', 'Profesores::delete/$1');//http://localhost:8080/api/profesores/delete/1
 	});
+	//	 -->Rutas de Grados
+	$routes->group('grados', function($routes){
+		
+		$routes->get('grados', 'Grados::index');//http://localhost:8080/api/grados
+		$routes->post('grados/create', 'Grados::create');//http://localhost:8080/api/grados/create
+		$routes->get('grados/edit/(:num)', 'Grados::edit/$1');//http://localhost:8080/api/grados/edit/1
+		$routes->put('grados/update/(:num)', 'Grados::update/$1');//http://localhost:8080/api/grados/update/1
+		$routes->put('grados/delete/(:num)', 'Grados::delete/$1');//http://localhost:8080/api/grados/delete/1
+	});
 	
 });
 
