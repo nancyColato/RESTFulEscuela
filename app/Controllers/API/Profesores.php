@@ -45,7 +45,7 @@ class Profesores extends ResourceController
 
                 $profesor = $this->model->find($id);
                 if($profesor == null)
-                    return $this->failNotFound('No se ha encontrado un cliente con el id: '.$id);
+                    return $this->failNotFound('No se ha encontrado registro con el id: '.$id);
             
              return $this->respond($profesor);
 
