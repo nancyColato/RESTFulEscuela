@@ -17,18 +17,37 @@ class EstudianteModel extends Model{
 
     //reglas
     protected $validationRules  = [
-        'nombre'        => 'required|alpha_space|min_length[3]|max_length[75]',
-        'apellido'      => 'required|alpha_space|min_length[3]|max_length[75]',
-        'dui'           => 'permit_empty|alpha_space|min_length[10]|max_length[10]',
-        'genero'        => 'required|alfa|max_length[1]',
-        'grado_id'        => 'required|alpha_dash|min_length[3]|max_length[11]',
-        'carnet'      => 'required|regex_match[/^[Uu]20[0-2]{1}[\d{1}]\d{4}$/]|min_length[8]',
+        'nombre'        => 'required|regex_match[/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+\D\s*$/]|min_length[3]|max_length[75]',
+        'apellido'      => 'required|regex_match[/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+\D\s*$/]|min_length[3]|max_length[75]',
+        'dui'           => 'permit_empty|regex_match[/^\d{8}-\d{1}$/]',
+        'genero'        => 'required|regex_match[/^[FfMm]$/]|max_length[1]',
+        'grado_id'      => 'required|integer|is_valid_grado',
+        'carnet'        => 'required|regex_match[/^[Uu]20[0-2]{1}[\d{1}]\d{4}$/]',
     ];
 
     protected $validationMessages = [
         'carnet'        =>[
-            'regex_match'=>'El carent debe tener el formato U20150000'
+            'regex_match'=>'El carnet debe coincidir con el formato U20150000'
+        ],
+
+        'grado_id'       =>[
+            'is_valid_grado'=>'El Id del grado no es invalido!'
+        ],
+
+        'dui'           =>[
+            'regex_match'=>'El formato debe coincidir con 00000000-0'
+        ],
+
+        'genero'           =>[
+            'regex_match'=>'Solo puede elegir F o M como genero'
+        ],
+        'nombre'           =>[
+            'regex_match'=>'El formato de nombre no es aceptado'
+        ],
+        'apellido'           =>[
+            'regex_match'=>'El formato de apellido no es aceptado'
         ]
+
     ];
 
     protected $skipValidation = false;

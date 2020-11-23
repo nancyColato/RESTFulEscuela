@@ -17,15 +17,32 @@ class ProfesorModel extends Model{
 
     //reglas
     protected $validationRules  = [
-        'nombre'        => 'required|alpha_space|min_length[3]|max_length[75]',
-        'apellido'      => 'required|alpha_space|min_length[3]|max_length[75]',
+        'nombre'        => 'required|regex_match[/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+\D\s*$/]|min_length[3]|max_length[75]',
+        'apellido'      => 'required|regex_match[/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+\D\s*$/]|min_length[3]|max_length[75]',
         'dui'           => 'permit_empty|regex_match[/^\d{8}-\d{1}$/]|min_length[10]|max_length[10]',
         'profesion'        => 'required|alpha|min_length[3]max_length[3]',
-        'telefono'        => 'required|alpha_dash|min_length[9]|max_length[9]',
+        'telefono'        => 'required|regex_match[/^[267]{1}\d{3}-\d{4}$/]|min_length[9]|max_length[9]',
     ];
 
+    protected $validationMessages = [
+        'dui'           =>[
+            'regex_match'=>'El formato debe coincidir con 00000000-0'
+        ],
+
+        'genero'           =>[
+            'regex_match'=>'Solo puede elegir F o M como genero'
+        ],
+        'nombre'           =>[
+            'regex_match'=>'El formato de nombre no es aceptado'
+        ],
+        'apellido'           =>[
+            'regex_match'=>'El formato de apellido no es aceptado'
+        ]
+
+    ];
 
     protected $skipValidation = false;
 }
+
 
 ?>
