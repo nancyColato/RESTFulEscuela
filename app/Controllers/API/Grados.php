@@ -13,7 +13,7 @@ class Grados extends ResourceController
     //Vista principal
 	 public function index()
 	 {
-		 $grados = $this->model->findAll();
+		$grados = $this->model->findAll();
 	 	return $this->respond($grados);
 	 }
      
