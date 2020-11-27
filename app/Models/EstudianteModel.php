@@ -56,7 +56,7 @@ class EstudianteModel extends Model{
     function consulta_estudiante($id) 
     { 
             return $this->asArray()
-            -> select('DISTINCTROW concat(e.nombre," ", e.apellido)  as nombre, e.genero, e.carnet')
+            -> select('DISTINCTROW concat(e.nombre," ", e.apellido)  as nombre, e.genero,  e.carnet')
             ->from('estudiante e')
             ->where(['e.grado_id'=>$id])
             ->findAll();
