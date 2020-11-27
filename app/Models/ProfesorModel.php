@@ -42,7 +42,14 @@ class ProfesorModel extends Model{
     ];
 
     protected $skipValidation = false;
+
+      //funcion para endpoint
+      function consulta_profesor($id) 
+      { 
+        return $this->asArray()
+        -> select('concat(p.nombre," ", p.apellido)  as nombre, p.profesion, p.telefono ')
+        ->from('profesor p')
+        ->where(['p.id'=>$id])
+        ->first();
+      }
 }
-
-
-?>

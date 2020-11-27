@@ -36,5 +36,15 @@ class GradoModel extends Model
     ];
 
     protected $skipValidation = false;
+
+    //funcion para endpoint
+    function consulta_grado($id) 
+    { 
+            return $this->asArray()
+            -> select('g.grado, g.seccion')
+            ->from('grado g')
+            ->where(['g.id'=>$id])
+            ->first();
+    }
 }
 ?>
