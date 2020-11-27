@@ -64,6 +64,13 @@ $routes->group('api',['namespace'=> 'App\Controllers\API'], function($routes){
 		$routes->put('grados/update/(:num)', 'Grados::update/$1');//http://localhost:8080/api/grados/update/1
 		$routes->put('grados/delete/(:num)', 'Grados::delete/$1');//http://localhost:8080/api/grados/delete/1
 	});
+
+	//Rutas finales endpoint pedido
+	$routes->group('conjuntos', function($routes){
+		
+		$routes->get('conjuntos/show/(:num)', 'Conjuntos::show/$1');//http://localhost:8080/api/conjuntos/show/1
+	});
+
 	
 });
 
