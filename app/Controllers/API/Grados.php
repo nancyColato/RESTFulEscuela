@@ -13,7 +13,9 @@ class Grados extends ResourceController
     //Vista principal
 	 public function index()
 	 {
-		$grados = $this->model->findAll();
+        $grados = $this->model->findAll();
+        if($grados == null)
+        return $this->failNotFound("No se han encontrado registros!!");
 	 	return $this->respond($grados);
 	 }
      

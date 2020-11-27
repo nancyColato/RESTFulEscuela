@@ -13,7 +13,11 @@ class Profesores extends ResourceController
     //Vista principal
 	 public function index()
 	 {
-		 $profesores = $this->model->findAll();
+         $profesores = $this->model->findAll();
+         
+         if($profesores == null)
+            return $this->failNotFound("No se han encontrado registros!!");
+
 	 	return $this->respond($profesores);
 	 }
      

@@ -15,6 +15,8 @@ class Estudiantes extends ResourceController
     public function index()
     {
         $estudiantes = $this->model->findAll();
+        if($estudiantes == null)
+            return $this->failNotFound("No se han encontrado registros!!");
         return $this->respond($estudiantes);
     }
 
