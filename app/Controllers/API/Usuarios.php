@@ -51,11 +51,11 @@ class Usuarios extends ResourceController
 	{
 		try {
 			if($id==null)
-				return $this->failValidationError('No se se ha pasado ID Valido');
+				return $this->failValidationError('No se ha pasado ID Valido');
 			$verificarUsuario = $this->model->find($id);
 
 			if($verificarUsuario==null)
-				return $this->failNotFound('No se se ha encontrado un Usuario con id: ' .$id);
+				return $this->failNotFound('No se ha encontrado un Usuario con id: ' .$id);
 			
 			$Usuario = $this->request->getJSON();
 			if($this->model->update($id,$Usuario)):
@@ -83,7 +83,7 @@ class Usuarios extends ResourceController
 			if($this->model->delete($id)):
 				return $this->respondDeleted($verificarUsuario);
 			else:
-				return $this->failServerError('No se Ha Podido borrar el Registro');
+				return $this->failServerError('No se ha Podido borrar el Registro');
 			endif;
 
 		} catch (\Exception $e) {
