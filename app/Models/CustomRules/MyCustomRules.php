@@ -2,6 +2,7 @@
 
 use App\Models\ProfesorModel;
 use App\Models\GradoModel;
+use App\Models\RolModel;
 
 class MyCustomRules
 {
@@ -20,5 +21,14 @@ class MyCustomRules
         $grado = $model->find($id);
 
         return $grado == null ? false : true;
+    }
+
+    //validacion de rol para usuario
+    public function is_valid_rol(int $id): bool
+    {
+        $model = new RolModel();
+        $rol = $model->find($id);
+
+        return $rol == null ? false : true;
     }
 }
