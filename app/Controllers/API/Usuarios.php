@@ -6,7 +6,8 @@ use CodeIgniter\RESTful\ResourceController;
 class Usuarios extends ResourceController
 {
     public function __construct(){
-        $this->model = $this->setModel(new UsuarioModel());
+		$this->model = $this->setModel(new UsuarioModel());
+		helper('secure_password');
     }
 	public function index()
 	{
@@ -17,10 +18,12 @@ class Usuarios extends ResourceController
 	public function create()
 	{
 		try {
-			$Usuario= $this->request->getJSON();
-			if($this->model->insert($Usuario)):
-				$Usuario->id = $this->model->insertID();
-				return $this->respondCreated($Usuario);
+			$usuario= $this->request->getJSON();
+			//encrita contraseña
+			$usuario->password = hashPassword($usuario->password);
+			if($this->model->insert($usuario)):
+				$usuario->id = $this->model->insertID();
+				return $this->respondCreated($usuario);
 			else:
 				return $this->failValidationError($this->model->validation->listErrors());
 			endif;
@@ -35,12 +38,12 @@ class Usuarios extends ResourceController
 		try {
 			if($id==null)
 				return $this->failValidationError('No se ha pasado ID Valido');
-			$Usuario = $this->model->find($id);
+			$usuario = $this->model->find($id);
 
-			if($Usuario==null)
-				return $this->failNotFound('No se ha encontrado un Usuario con id: ' .$id);
+			if($usuario==null)
+				return $this->failNotFound('No se ha encontrado un usuario con id: ' .$id);
 			
-			return $this->respond($Usuario);
+			return $this->respond($usuario);
 
 		} catch (\Exception $e) {
 			//throw $th;
@@ -55,12 +58,15 @@ class Usuarios extends ResourceController
 			$verificarUsuario = $this->model->find($id);
 
 			if($verificarUsuario==null)
-				return $this->failNotFound('No se ha encontrado un Usuario con id: ' .$id);
+				return $this->failNotFound('No se ha encontrado un usuario con id: ' .$id);
 			
-			$Usuario = $this->request->getJSON();
-			if($this->model->update($id,$Usuario)):
-				$Usuario->id= $id;
-				return $this->respondUpdated($Usuario);
+			$usuario = $this->request->getJSON();
+			
+			//encripcaion de password
+			$usuario->password = hashPassword($usuario->password);
+			if($this->model->update($id,$usuario)):
+				$usuario->id= $id;
+				return $this->respondUpdated($usuario);
 			else:
 				return $this->failValidationError($this->model->validation->listErrors());
 			endif;
