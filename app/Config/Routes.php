@@ -31,6 +31,7 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->post('/auth/login', 'Auth::login');//ruta para filtros
 
 //rutas del grupo api
 //http://localhost:8080/api
@@ -71,6 +72,24 @@ $routes->group('api',['namespace'=> 'App\Controllers\API'], function($routes){
 		$routes->get('conjuntos/show/(:num)', 'Conjuntos::show/$1');//http://localhost:8080/api/conjuntos/show/1
 	});
 
+		//RUTAS de ROLES
+
+		$routes->group('roles', function($routes){
+			$routes->get('roles', 'Roles::index');//http://localhost:8080/api/roles
+			$routes->post('roles/create', 'Roles::create');//http://localhost:8080/api/roles/create
+			$routes->get('roles/edit/(:num)', 'Roles::edit/$1');//http://localhost:8080/api/roles/edit/1
+			$routes->put('roles/update/(:num)', 'Roles::update/$1');//http://localhost:8080/api/roles/update/1
+			$routes->put('roles/delete/(:num)', 'Roles::delete/$1');//http://localhost:8080/api/roles/delete/1
+		});
+		//RUTAS de Usuarios
+	
+		$routes->group('usuarios', function($routes){
+			$routes->get('usuarios', 'Usuarios::index', ['filter' => 'authFIlter']);//http://localhost:8080/api/usuarios
+			$routes->post('usuarios/create', 'Usuarios::create');//http://localhost:8080/api/usuarios/create
+			$routes->get('usuarios/edit/(:num)', 'Usuarios::edit/$1');//http://localhost:8080/api/usuarios/edit/1
+			$routes->put('usuarios/update/(:num)', 'Usuarios::update/$1');//http://localhost:8080/api/usuarios/update/1
+			$routes->put('usuarios/delete/(:num)', 'Usuarios::delete/$1');//http://localhost:8080/api/usuarios/delete/1
+		});
 	
 });
 
