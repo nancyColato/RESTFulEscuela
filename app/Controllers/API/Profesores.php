@@ -13,18 +13,29 @@ class Profesores extends ResourceController
     //Vista principal
 	 public function index()
 	 {
+        try {
+            //validacion
+            if (!validateAccess(array('admin', 'teacher'), $this->request->getServer('HTTP_AUTHORIZATION')))
+                return  $this->failServerError('El rol no posee acceso al recurso!!');
+
          $profesores = $this->model->findAll();
          
          if($profesores == null)
             return $this->failNotFound("No se han encontrado registros!!");
 
 	 	return $this->respond($profesores);
-	 }
+	         }catch (\Throwable $th) {
+        //throw $th;
+            }
+    }
      
      //Crear un nuevo profesor
      public function create()
      {
          try {
+              //validacion
+                if (!validateAccess(array('admin'), $this->request->getServer('HTTP_AUTHORIZATION')))
+                    return  $this->failServerError('El rol no posee acceso al recurso!!');
              
             $profesor = $this->request->getJSON();
             if($this->model->insert($profesor)): //metodo devuelve un bool cuando se ejecute
@@ -44,6 +55,10 @@ class Profesores extends ResourceController
      public function edit($id = null)
 	{
         try {
+            //validacion
+            if (!validateAccess(array('admin'), $this->request->getServer('HTTP_AUTHORIZATION')))
+                return  $this->failServerError('El rol no posee acceso al recurso!!');
+
              if($id == null)
                  return $this->failValidationError('No se ha ingresado un ID valido');
 
@@ -61,6 +76,10 @@ class Profesores extends ResourceController
      public function update($id = null)
 	{
         try {
+             //validacion
+             if (!validateAccess(array('admin'), $this->request->getServer('HTTP_AUTHORIZATION')))
+                return  $this->failServerError('El rol no posee acceso al recurso!!');
+
              if($id == null)
                  return $this->failValidationError('No se ha ingresado un ID valido');
 
@@ -88,6 +107,10 @@ class Profesores extends ResourceController
     public function delete($id = null)
 	{
         try {
+            //validacion
+            if (!validateAccess(array('admin'), $this->request->getServer('HTTP_AUTHORIZATION')))
+                return  $this->failServerError('El rol no posee acceso al recurso!!');
+
             if($id == null)
                 return $this->failValidationError('No se ha ingresado un ID valido');
 

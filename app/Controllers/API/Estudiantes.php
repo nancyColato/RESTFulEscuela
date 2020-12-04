@@ -14,10 +14,19 @@ class Estudiantes extends ResourceController
 
     public function index()
     {
+        try {
+         //validacion
+         if (!validateAccess(array('admin', 'student', 'teacher'), $this->request->getServer('HTTP_AUTHORIZATION')))
+            return  $this->failServerError('El rol no posee acceso al recurso!!');
+
         $estudiantes = $this->model->findAll();
         if($estudiantes == null)
             return $this->failNotFound("No se han encontrado registros!!");
         return $this->respond($estudiantes);
+        }catch (\Exception $e) {
+        //log_message('error','[ERROR] {exception}',['exception' => $e]);
+            return $this->failServerError('Ha ocurriodo un error en el servidor');
+        }
     }
 
 
@@ -25,6 +34,9 @@ class Estudiantes extends ResourceController
     public function create()
     {
         try {
+             //validacion
+             if (!validateAccess(array('admin'), $this->request->getServer('HTTP_AUTHORIZATION')))
+                return  $this->failServerError('El rol no posee acceso al recurso!!');
 
             $estudiante = $this->request->getJSON();
             if ($this->model->insert($estudiante)) : //metodo devuelve un bool cuando se ejecute
@@ -43,6 +55,10 @@ class Estudiantes extends ResourceController
     public function edit($id = null)
     {
         try {
+            //validacion
+            if (!validateAccess(array('admin', 'student'), $this->request->getServer('HTTP_AUTHORIZATION')))
+                return  $this->failServerError('El rol no posee acceso al recurso!!');
+
             if ($id == null)
                 return $this->failValidationError('No se ha ingresado un ID valido');
 
@@ -59,6 +75,10 @@ class Estudiantes extends ResourceController
     public function update($id = null)
     {
         try {
+            //validacion
+            if (!validateAccess(array('admin'), $this->request->getServer('HTTP_AUTHORIZATION')))
+                return  $this->failServerError('El rol no posee acceso al recurso!!');
+
             if ($id == null)
                 return $this->failValidationError('No se ha ingresado un ID valido');
 
@@ -85,6 +105,10 @@ class Estudiantes extends ResourceController
     public function delete($id = null)
     {
         try {
+             //validacion
+             if (!validateAccess(array('admin'), $this->request->getServer('HTTP_AUTHORIZATION')))
+                return  $this->failServerError('El rol no posee acceso al recurso!!');
+
             if ($id == null)
                 return $this->failValidationError('No se ha ingresado un ID valido');
 
