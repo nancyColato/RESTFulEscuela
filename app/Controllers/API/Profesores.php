@@ -7,7 +7,8 @@ class Profesores extends ResourceController
 {
     //constructor de seteo del modelo
 	public function __construct(){
-		$this->model = $this->setModel(new ProfesorModel());
+        $this->model = $this->setModel(new ProfesorModel());
+        helper('access_rol');
 	}
 
     //Vista principal

@@ -6,7 +6,8 @@ use CodeIgniter\RESTful\ResourceController;
 class Rol extends ResourceController
 {
     public function __construct(){
-        $this->model = $this->setModel(new RolModel());
+		$this->model = $this->setModel(new RolModel());
+		helper('access_rol');
     }
 	public function index()
 	{

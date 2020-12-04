@@ -8,6 +8,7 @@ class Usuarios extends ResourceController
     public function __construct(){
 		$this->model = $this->setModel(new UsuarioModel());
 		helper('secure_password');
+		helper('access_rol');
     }
 	public function index()
 	{
