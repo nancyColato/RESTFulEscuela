@@ -35,7 +35,7 @@ $routes->post('/auth/login', 'Auth::login');//ruta para filtros
 
 //rutas del grupo api
 //http://localhost:8080/api
-$routes->group('api',['namespace'=> 'App\Controllers\API'], function($routes){
+$routes->group('api',['namespace'=> 'App\Controllers\API', 'filter' => 'authFilter'], function($routes){
 	
 	//	 -->Rutas de Estudiantes
 	$routes->group('estudiantes', function($routes){
