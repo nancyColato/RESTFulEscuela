@@ -64,6 +64,14 @@ $routes->group('api',['namespace'=> 'App\Controllers\API'], function($routes){
 		$routes->put('grados/update/(:num)', 'Grados::update/$1');//http://localhost:8080/api/grados/update/1
 		$routes->put('grados/delete/(:num)', 'Grados::delete/$1');//http://localhost:8080/api/grados/delete/1
 	});
+	//Rutas de Usuarios
+	$routes->group('api',['namespace'=>'App\Controllers\API'],function($routes){
+		$routes->get('usuarios', 'Usuarios::index');
+		$routes->post('usuarios/create', 'Usuarios::create');
+		$routes->get('usuarios/edit(:num)', 'Usuarios::edit/$1');
+		$routes->put('usuarios/update(:num)', 'Usuarios::update/$1');
+		$routes->delete('usuarios/delete(:num)', 'Usuarios::delete/$1');
+	});
 
 	//Rutas finales endpoint pedido
 	$routes->group('conjuntos', function($routes){
