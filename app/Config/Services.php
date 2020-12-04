@@ -16,7 +16,11 @@ use CodeIgniter\Config\Services as CoreServices;
  * see the core Services file at system/Config/Services.php.
  */
 class Services extends CoreServices
-{
+{	
+	public static function getSecretKey()
+	{
+		return 'key_secret';
+	}
 
 	//    public static function example($getShared = true)
 	//    {
